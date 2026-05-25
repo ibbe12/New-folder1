@@ -1,4 +1,4 @@
-import React from 'react';
+import { Navbar } from '../components/layout/Navbar';
 import { Package, Users } from 'lucide-react';
 
 interface HomePageProps {
@@ -8,15 +8,10 @@ interface HomePageProps {
 
 export function HomePage({ onCustomer, onAdmin }: HomePageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 flex flex-col p-6">
-      <header className="w-full">
-        <div className="max-w-4xl mx-auto w-full text-center">
-          <img src="/logo.svg" alt="CPEX Logo" className="mx-auto mb-3 w-36 h-auto bg-transparent" />
-          <h1 className="text-3xl sm:text-4xl font-extrabold font-post text-white text-center mt-2">CPEX Hoarafushi Connect</h1>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 flex flex-col">
+      <Navbar onHome={() => {}} onCustomer={onCustomer} onAdmin={onAdmin} />
 
-      <main className="flex-1 flex items-center justify-center">
+      <main className="flex-1 flex items-center justify-center p-6">
         <div className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-6">
           <button
           onClick={onCustomer}
