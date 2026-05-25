@@ -2,6 +2,7 @@
   "chat.tools.terminal.autoApprove": {
     "npm install": true,
     "npx tsc": true,
-    "npx http-server": true
+    "npx http-server": true,
+    "git remote": true
   }
 }
