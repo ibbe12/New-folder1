@@ -1,4 +1,4 @@
-import { Globe, Home, Users } from 'lucide-react';
+import { Package, Home, Users } from 'lucide-react';
 
 interface NavbarProps {
   onHome?: () => void;
@@ -27,7 +27,7 @@ export function Navbar({ onHome, onCustomer, onAdmin }: NavbarProps) {
             onClick={onCustomer}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-200 border border-white/10 hover:bg-white/5 transition-colors"
           >
-            <Globe className="w-4 h-4" />
+            <Package className="w-4 h-4" />
             <span className="hidden md:inline">Customer Portal</span>
           </button>
 

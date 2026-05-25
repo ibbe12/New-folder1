@@ -8,9 +8,10 @@ import type { AuthSession } from '../types';
 interface LoginPageProps {
   onLogin: (session: AuthSession) => void;
   onPublicSearch: () => void;
+  onHome?: () => void;
 }
 
-export function LoginPage({ onLogin, onPublicSearch }: LoginPageProps) {
+export function LoginPage({ onLogin, onPublicSearch, onHome }: LoginPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -39,7 +40,7 @@ export function LoginPage({ onLogin, onPublicSearch }: LoginPageProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 flex flex-col">
-      <Navbar onHome={() => {}} onCustomer={onPublicSearch} onAdmin={() => {}} />
+      <Navbar onHome={onHome} onCustomer={onPublicSearch} onAdmin={() => {}} />
 
       <div className="flex-1 flex items-center justify-center p-4">
         {/* Background decorative elements */}

@@ -18,6 +18,7 @@ import type { Parcel } from '../types';
 
 interface PublicSearchProps {
   onGoToStaff: () => void;
+  onHome?: () => void;
 }
 
 type SearchField = 'all' | 'trackingNumber' | 'customerName' | 'mobileNumber' | 'island';
@@ -32,7 +33,7 @@ const FIELD_LABELS: Record<SearchField, string> = {
 
 import { Navbar } from '../components/layout/Navbar';
 
-export function PublicSearch({ onGoToStaff }: PublicSearchProps) {
+export function PublicSearch({ onGoToStaff, onHome }: PublicSearchProps) {
   const [query, setQuery] = useState('');
   const [searchField, setSearchField] = useState<SearchField>('all');
   const [hasSearched, setHasSearched] = useState(false);
@@ -67,7 +68,7 @@ export function PublicSearch({ onGoToStaff }: PublicSearchProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900">
-      <Navbar onHome={() => {}} onCustomer={() => {}} onAdmin={onGoToStaff} />
+      <Navbar onHome={onHome} onCustomer={() => {}} onAdmin={onGoToStaff} />
 
       <div className="max-w-4xl mx-auto px-4 py-8 sm:py-12">
         {/* Hero */}

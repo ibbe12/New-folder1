@@ -98,7 +98,7 @@ export default function App() {
   if (view === 'public') {
     return (
       <>
-        <PublicSearch onGoToStaff={() => setView('home')} />
+        <PublicSearch onGoToStaff={() => setView('home')} onHome={() => setView('home')} />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
       </>
     );
@@ -108,7 +108,7 @@ export default function App() {
   if (view === 'home') {
     return (
       <>
-        <HomePage onCustomer={() => setView('public')} onAdmin={() => setView('login')} />
+        <HomePage onCustomer={() => setView('public')} onAdmin={() => setView('login')} onHome={() => setView('home')} />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
       </>
     );
@@ -121,6 +121,7 @@ export default function App() {
         <LoginPage
           onLogin={handleLogin}
           onPublicSearch={() => setView('public')}
+          onHome={() => setView('home')}
         />
         <ToastContainer toasts={toasts} onRemove={removeToast} />
       </>
