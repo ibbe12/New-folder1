@@ -14,7 +14,7 @@ export function HomePage({ onCustomer, onAdmin, onHome }: HomePageProps) {
 
       <header className="w-full">
         <div className="max-w-4xl mx-auto w-full text-center py-6">
-          <img src="./logo.svg" alt="CPEX Logo" className="mx-auto mb-3 w-36 h-auto bg-transparent" />
+          <img src="logo.svg" alt="CPEX Logo" className="mx-auto mb-3 w-36 h-auto bg-transparent" />
           <h1 className="text-3xl sm:text-4xl font-extrabold font-post text-white text-center mt-2">CPEX Hoarafushi Connect</h1>
         </div>
       </header>
