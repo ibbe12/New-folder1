@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, type FormEvent } from 'react';
 import {
   Package,
   Search,
@@ -44,6 +44,191 @@ const INITIAL_FORM: Omit<Parcel, 'id' | 'createdAt' | 'updatedAt'> = {
   status: 'Received',
   remarks: '',
 };
+
+interface ParcelFormProps {
+  formError: string;
+  formData: Omit<Parcel, 'id' | 'createdAt' | 'updatedAt'>;
+  showEditModal: boolean;
+  onChange: (data: Omit<Parcel, 'id' | 'createdAt' | 'updatedAt'>) => void;
+  onSubmit: (e: FormEvent) => void;
+  onClose: () => void;
+  showAddModal: boolean;
+}
+
+const ParcelForm = ({
+  formError,
+  formData,
+  showEditModal,
+  onChange,
+  onSubmit,
+  onClose,
+  showAddModal,
+}: ParcelFormProps) => {
+  return (
+    <form onSubmit={onSubmit} className="p-6 space-y-4">
+      {formError && (
+        <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">
+          {formError}
+        </div>
+      )}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Tracking Number <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            value={formData.trackingNumber}
+            onChange={(e) => onChange({ ...formData, trackingNumber: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="e.g. DHL-2024-001"
+            disabled={showEditModal}
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Customer Name <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            value={formData.customerName}
+            onChange={(e) => onChange({ ...formData, customerName: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="Full name"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
+          <input
+            type="tel"
+            value={formData.mobileNumber}
+            onChange={(e) => onChange({ ...formData, mobileNumber: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="tel"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="+960 7XXXXXX"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Island / Atoll</label>
+          <input
+            type="text"
+            value={formData.island}
+            onChange={(e) => onChange({ ...formData, island: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="e.g. Malé, Hulhumale"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+          <input
+            type="text"
+            value={formData.address}
+            onChange={(e) => onChange({ ...formData, address: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="Full delivery address"
+          />
+        </div>
+        <div className="sm:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Parcel Description</label>
+          <input
+            type="text"
+            value={formData.description}
+            onChange={(e) => onChange({ ...formData, description: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="e.g. Electronics, Clothing"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Arrival Date</label>
+          <input
+            type="date"
+            value={formData.arrivalDate}
+            onChange={(e) => onChange({ ...formData, arrivalDate: e.target.value })}
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Courier Name</label>
+          <input
+            type="text"
+            value={formData.courierName}
+            onChange={(e) => onChange({ ...formData, courierName: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="e.g. DHL, FedEx, Aramex"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+          <select
+            value={formData.status}
+            onChange={(e) => onChange({ ...formData, status: e.target.value as ParcelStatus })}
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 bg-white"
+          >
+            {STATUS_OPTIONS.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Remarks</label>
+          <input
+            type="text"
+            value={formData.remarks}
+            onChange={(e) => onChange({ ...formData, remarks: e.currentTarget.value })}
+            autoCorrect="off"
+            spellCheck="false"
+            autoCapitalize="off"
+            inputMode="text"
+            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            placeholder="Additional notes"
+          />
+        </div>
+      </div>
+      <div className="flex gap-3 pt-2">
+        <button
+          type="button"
+          onClick={onClose}
+          className="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          className="flex-1 px-4 py-2.5 rounded-xl bg-teal-600 text-white text-sm font-medium hover:bg-teal-700 transition-colors"
+        >
+          {showAddModal ? 'Add Parcel' : 'Save Changes'}
+        </button>
+      </div>
+    </form>
+  );
+}
 
 export function ParcelsPage({ session }: ParcelsPageProps) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -175,171 +360,6 @@ export function ParcelsPage({ session }: ParcelsPageProps) {
 
   const canEdit = session.role === 'admin' || session.role === 'staff';
   const canDelete = session.role === 'admin';
-
-  const ParcelForm = () => (
-    <form onSubmit={handleSubmit} className="p-6 space-y-4">
-      {formError && (
-        <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700">
-          {formError}
-        </div>
-      )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Tracking Number <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={formData.trackingNumber}
-            onChange={(e) => setFormData({ ...formData, trackingNumber: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="e.g. DHL-2024-001"
-            disabled={showEditModal}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Customer Name <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            value={formData.customerName}
-            onChange={(e) => setFormData({ ...formData, customerName: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="Full name"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Mobile Number</label>
-          <input
-            type="tel"
-            value={formData.mobileNumber}
-            onChange={(e) => setFormData({ ...formData, mobileNumber: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="tel"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="+960 7XXXXXX"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Island / Atoll</label>
-          <input
-            type="text"
-            value={formData.island}
-            onChange={(e) => setFormData({ ...formData, island: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="e.g. Malé, Hulhumale"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-          <input
-            type="text"
-            value={formData.address}
-            onChange={(e) => setFormData({ ...formData, address: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="Full delivery address"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Parcel Description</label>
-          <input
-            type="text"
-            value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="e.g. Electronics, Clothing"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Arrival Date</label>
-          <input
-            type="date"
-            value={formData.arrivalDate}
-            onChange={(e) => setFormData({ ...formData, arrivalDate: e.target.value })}
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Courier Name</label>
-          <input
-            type="text"
-            value={formData.courierName}
-            onChange={(e) => setFormData({ ...formData, courierName: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="e.g. DHL, FedEx, Aramex"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-          <select
-            value={formData.status}
-            onChange={(e) => setFormData({ ...formData, status: e.target.value as ParcelStatus })}
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 bg-white"
-          >
-            {STATUS_OPTIONS.map((s) => (
-              <option key={s} value={s}>{s}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Remarks</label>
-          <input
-            type="text"
-            value={formData.remarks}
-            onChange={(e) => setFormData({ ...formData, remarks: e.currentTarget.value })}
-            autoCorrect="off"
-            spellCheck="false"
-            autoCapitalize="off"
-            inputMode="text"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
-            placeholder="Additional notes"
-          />
-        </div>
-      </div>
-      <div className="flex gap-3 pt-2">
-        <button
-          type="button"
-          onClick={() => { setShowAddModal(false); setShowEditModal(false); }}
-          className="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="flex-1 px-4 py-2.5 rounded-xl bg-teal-600 text-white text-sm font-medium hover:bg-teal-700 transition-colors"
-        >
-          {showAddModal ? 'Add Parcel' : 'Save Changes'}
-        </button>
-      </div>
-    </form>
-  );
 
   return (
     <div className="p-4 sm:p-6 space-y-4">
@@ -531,12 +551,28 @@ export function ParcelsPage({ session }: ParcelsPageProps) {
 
       {/* Add Modal */}
       <Modal isOpen={showAddModal} onClose={() => setShowAddModal(false)} title="Add New Parcel" size="xl">
-        <ParcelForm />
+        <ParcelForm
+          formError={formError}
+          formData={formData}
+          showEditModal={false}
+          showAddModal={showAddModal}
+          onChange={setFormData}
+          onSubmit={handleSubmit}
+          onClose={() => setShowAddModal(false)}
+        />
       </Modal>
 
       {/* Edit Modal */}
       <Modal isOpen={showEditModal} onClose={() => setShowEditModal(false)} title="Edit Parcel" size="xl">
-        <ParcelForm />
+        <ParcelForm
+          formError={formError}
+          formData={formData}
+          showEditModal={true}
+          showAddModal={showAddModal}
+          onChange={setFormData}
+          onSubmit={handleSubmit}
+          onClose={() => setShowEditModal(false)}
+        />
       </Modal>
 
       {/* View Modal */}
